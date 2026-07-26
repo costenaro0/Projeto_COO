@@ -32,6 +32,7 @@ public class Player extends Entidade {
         return this.radius;
     }
 
+    @Override
     public void morrer() {
         long currentTime = System.currentTimeMillis();
         this.state = State.EXPLODING;

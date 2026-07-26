@@ -16,6 +16,7 @@ public class PlayerProjectile extends Entidade {
         this.velocity_Y = -1.0;
     }
 
+    @Override
     public double getRadius() {
         return 2.0;
     }
