@@ -3,6 +3,7 @@ package main;
 import core.State;
 import entities.Background;
 import entities.Enemy1;
+import entities.Enemy2;
 import entities.Entidade;
 import entities.Player;
 
@@ -42,6 +43,10 @@ public class Main {
 
 		long nextEnemy1 = currentTime + 2000;
 
+		long nextEnemy2 = currentTime + 7000;
+		double enemy2SpawnX = GameLib.WIDTH * 0.20;
+		int enemy2Count = 0;
+
 		while (running) {
 
 			delta = System.currentTimeMillis() - currentTime;
@@ -50,6 +55,25 @@ public class Main {
 			if (currentTime > nextEnemy1) {
 				enemies.add(new Enemy1(Math.random() * (GameLib.WIDTH - 20) + 10, -200.0, State.ACTIVE, enemy_Projectiles, player));
 				nextEnemy1 = currentTime + 500;
+			}
+
+			if (currentTime > nextEnemy2) {
+				enemies.add(
+						new Enemy2(enemy2SpawnX, -10.0, State.ACTIVE, enemy_Projectiles)
+				);
+
+				enemy2Count++;
+
+				if (enemy2Count < 10) {
+					nextEnemy2 = currentTime + 120;
+				}else {
+					enemy2Count = 0;
+					enemy2SpawnX = Math.random() > 0.5
+							? GameLib.WIDTH * 0.20
+							: GameLib.WIDTH * 0.80;
+					nextEnemy2 = (long)
+							(currentTime + 3000 + Math.random() * 3000);
+				}
 			}
 
 			player.update(delta, currentTime);
